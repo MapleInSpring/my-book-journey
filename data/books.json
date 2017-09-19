@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "1. sense and sensibility",
+    "days": 20
+  },
+  {
+    "id": 2,
+    "name": "2. nonviolent communication",
+    "days": 30
+  },
+  {
+    "id": 3,
+    "name": "3. The Hunger Games",
+    "days": 40
+  },
+  {
+    "id": 4,
+    "name": "4. Catching Fire",
+    "days": 30
+  },
+  {
+    "id": 5,
+    "name": "5. The Fault in Our Stars",
+    "days": 20
+  }
+]

@@ -1,0 +1,7 @@
+div.bar {
+    width: 20px;
+    height: 20px;
+    background-color: aqua;
+    margin-bottom: 2px;
+    border: black 3px solid;
+}
