@@ -1,4 +1,5 @@
-let width = 500, height = 100;
+let width = 500, height = 200;
+let barWidth = 40;
 let body = d3.select('body'), books;
 let svg = body.append('svg')
     .attr('width', width)
@@ -7,13 +8,22 @@ let svg = body.append('svg')
 const addBooks = () => {
     d3.json("books.json", (bs) => {
         books = bs;
-        svg.selectAll('circle')
+        svg.selectAll('rect')
             .data(books)
             .enter()
-            .append('circle')
-            .classed('circleDays', true)
-            .attr('cx', (_, i) => i * 75 + 25)
-            .attr('cy', height / 2)
-            .attr('r', (d) => d.days);
+            .append('rect')
+            .classed('bar', true)
+            .attr('x', (_, i) => i * barWidth)
+            .attr('y', (b) => height - b.days)
+            .attr('height', (b) => b.days)
+            .attr('fill', (b) => `rgb(0, 0, ${b.days * 3})`);
+
+        svg.selectAll('text')
+            .data(books)
+            .enter()
+            .append('text')
+            .text(b => b.days)
+            .attr('x', (_, i) => i * barWidth)
+            .attr('y', (b) => height - b.days)
     });
 };

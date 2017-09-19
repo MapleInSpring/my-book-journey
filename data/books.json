@@ -7,21 +7,21 @@
   {
     "id": 2,
     "name": "2. nonviolent communication",
-    "days": 30
+    "days": 60
   },
   {
     "id": 3,
     "name": "3. The Hunger Games",
-    "days": 40
+    "days": 100
   },
   {
     "id": 4,
     "name": "4. Catching Fire",
-    "days": 30
+    "days": 80
   },
   {
     "id": 5,
     "name": "5. The Fault in Our Stars",
-    "days": 20
+    "days": 30
   }
 ]
