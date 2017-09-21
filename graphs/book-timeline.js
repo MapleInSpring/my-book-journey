@@ -1,5 +1,6 @@
 // metrics
 // svg
+
 const width = 800, height = 600;
 // axis
 const xPadding = 50, yPadding = 20;
@@ -12,13 +13,12 @@ const svg = body.append('svg')
     .attr('height', height);
 
 // data
-let books;
 const startDate = '18/09/2017', endDate = '24/09/2017';
-const startTime = '00:00:00', endTime = '23:59:59';
+const startTime = '00:00', endTime = '23:59';
 
 // date dateParser
 const dateParser = d3.timeParse('%d/%m/%Y');
-const hourParser = d3.timeParse('%H:%M:%S');
+const hourParser = d3.timeParse('%H:%M');
 
 // axis scale
 const xScale = d3.scaleBand()
@@ -41,15 +41,30 @@ const dateScale = d3.scaleQuantize()
 const dateFormat = d3.timeFormat("%H:%M");
 
 
-
 const showBooks = () => {
-    d3.json("books.json", (bs) => {
-        books = bs;
-        svg.append('g')
-            .attr("transform", `translate(0, ${height - yPadding})`)
-            .call(d3.axisBottom(xScale));
-        svg.append('g')
-            .attr("transform", `translate(${xPadding}, 0)`)
-            .call(d3.axisLeft(yScale).ticks(24).tickFormat(dateFormat))
+    svg.append('g')
+        .attr("transform", `translate(0, ${height - yPadding})`)
+        .call(d3.axisBottom(xScale));
+    svg.append('g')
+        .attr("transform", `translate(${xPadding}, 0)`)
+        .call(d3.axisLeft(yScale).ticks(24).tickFormat(dateFormat));
+
+    d3.json("book-time.json", (bt) => {
+        svg.selectAll('rect')
+            .data(bt)
+            .enter()
+            .append('rect')
+            .attr('fill', 'green')
+            .attr('x', (b) => xScale(dateScale(dateParser(b.date))))
+            .attr('y', (b) => yScale(hourParser(b.start)))
+            .attr('stroke', 'orange')
+            .attr('stroke-width', 2)
+            .attr('width', (width - 2 * xPadding) / 7)
+            .attr('height', (b) => {
+                const start = moment(hourParser(b.start));
+                const end = moment(hourParser(b.end));
+                const duration = moment.duration(end.diff(start));
+                return duration.asMinutes()/(24*60.0) * (height - yPadding);
+            })
     });
 };
